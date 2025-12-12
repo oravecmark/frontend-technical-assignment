@@ -1,12 +1,20 @@
 import { useState } from "react";
 import AccordionComponent from "./AccordionComponent";
+import TenantForm, { type TenantFormData } from "./TenantForm";
 
 function OnboardingFlow() {
   const [openSection, setOpenSection] = useState<number>(1);
   const [completedSections, setCompletedSections] = useState<number[]>([]);
+  const [tenantData, setTenantData] = useState<TenantFormData | null>(null);
 
   const toggleSection = (section: number) => {
     setOpenSection(openSection === section ? 0 : section);
+  };
+
+  const handleTenantContinue = (data: TenantFormData) => {
+    setTenantData(data);
+    setCompletedSections((prev) => [...prev, 1]);
+    setOpenSection(2); // Open next section
   };
 
   const progress = (completedSections.length / 3) * 100;
@@ -48,7 +56,13 @@ function OnboardingFlow() {
             isCompleted={completedSections.includes(1)}
             onToggle={() => toggleSection(1)}
           >
-            <p className="text-gray-600">Tenant here</p>
+            <TenantForm
+              onContinue={handleTenantContinue}
+              onValidationFail={() => {
+                setCompletedSections((prev) => prev.filter((s) => s !== 1));
+              }}
+              initialData={tenantData || undefined}
+            />
           </AccordionComponent>
 
           <AccordionComponent
@@ -59,7 +73,7 @@ function OnboardingFlow() {
             isCompleted={completedSections.includes(2)}
             onToggle={() => toggleSection(2)}
           >
-            <p className="text-gray-600">Organization form</p>
+            <p className="text-gray-600">Organization form coming next...</p>
           </AccordionComponent>
 
           <AccordionComponent
@@ -70,7 +84,7 @@ function OnboardingFlow() {
             isCompleted={completedSections.includes(3)}
             onToggle={() => toggleSection(3)}
           >
-            <p className="text-gray-600">Labels</p>
+            <p className="text-gray-600">Labels form coming next...</p>
           </AccordionComponent>
         </div>
       </div>
