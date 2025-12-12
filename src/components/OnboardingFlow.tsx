@@ -2,12 +2,14 @@ import { useState } from 'react';
 import AccordionComponent from './AccordionComponent';
 import TenantForm, { type TenantFormData } from './TenantForm';
 import OrganizationForm, { type OrganizationFormData } from './OrganizationForm';
+import LabelsForm, { type LabelsFormData } from './LabelsForm';
 
 function OnboardingFlow() {
   const [openSection, setOpenSection] = useState<number>(1);
   const [completedSections, setCompletedSections] = useState<number[]>([]);
   const [tenantData, setTenantData] = useState<TenantFormData | null>(null);
   const [organizationData, setOrganizationData] = useState<OrganizationFormData | null>(null);
+  const [labelsData, setLabelsData] = useState<LabelsFormData | null>(null);
 
   const toggleSection = (section: number) => {
     setOpenSection(openSection === section ? 0 : section);
@@ -16,13 +18,18 @@ function OnboardingFlow() {
   const handleTenantContinue = (data: TenantFormData) => {
     setTenantData(data);
     setCompletedSections((prev) => [...prev, 1]);
-    setOpenSection(2); // Open next section
+    setOpenSection(2);
   };
 
   const handleOrganizationContinue = (data: OrganizationFormData) => {
     setOrganizationData(data);
     setCompletedSections((prev) => [...prev, 2]);
-    setOpenSection(3); // Open next section
+    setOpenSection(3);
+  };
+
+  const handleLabelsComplete = (data: LabelsFormData) => {
+    setLabelsData(data);
+    setCompletedSections((prev) => [...prev, 3]);
   };
 
   const progress = (completedSections.length / 3) * 100;
@@ -91,7 +98,13 @@ function OnboardingFlow() {
             isCompleted={completedSections.includes(3)}
             onToggle={() => toggleSection(3)}
           >
-            <p className="text-gray-600">Labels form coming next...</p>
+            <LabelsForm
+              onComplete={handleLabelsComplete}
+              onValidationFail={() => {
+                setCompletedSections((prev) => prev.filter((s) => s !== 3));
+              }}
+              initialData={labelsData || undefined}
+            />
           </AccordionComponent>
         </div>
       </div>
