@@ -12,6 +12,7 @@
     "api:reset": "cp db.example.json db.json"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@tanstack/react-query": "^5.90.12",
     "json-server": "^1.0.0-beta.3",
     "react": "^19.2.0",

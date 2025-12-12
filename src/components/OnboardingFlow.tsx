@@ -4,6 +4,7 @@ import TenantForm, { type TenantFormData } from './TenantForm';
 import OrganizationForm, { type OrganizationFormData } from './OrganizationForm';
 import LabelsForm, { type LabelsFormData } from './LabelsForm';
 import SuccessScreen from './SuccessScreen';
+import { BuildingOffice2Icon, BuildingLibraryIcon, TagIcon } from '@heroicons/react/24/outline';
 
 function OnboardingFlow() {
   const [openSection, setOpenSection] = useState<number>(1);
@@ -119,6 +120,7 @@ function OnboardingFlow() {
             isOpen={openSection === 1}
             isCompleted={completedSections.includes(1)}
             onToggle={() => toggleSection(1)}
+            icon={BuildingOffice2Icon}
           >
             <TenantForm
               onContinue={handleTenantContinue}
@@ -136,6 +138,7 @@ function OnboardingFlow() {
             isOpen={openSection === 2}
             isCompleted={completedSections.includes(2)}
             onToggle={() => toggleSection(2)}
+            icon={BuildingLibraryIcon}
           >
             <OrganizationForm
               onContinue={handleOrganizationContinue}
@@ -153,6 +156,7 @@ function OnboardingFlow() {
             isOpen={openSection === 3}
             isCompleted={completedSections.includes(3)}
             onToggle={() => toggleSection(3)}
+            icon={TagIcon}
           >
             <LabelsForm
               onComplete={handleLabelsComplete}
