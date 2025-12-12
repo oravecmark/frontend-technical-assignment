@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface OrganizationFormProps {
   onContinue: (data: OrganizationFormData) => void;
@@ -18,21 +18,17 @@ export interface OrganizationFormData {
   businessAddress: string;
 }
 
-function OrganizationForm({
-  onContinue,
-  onValidationFail,
-  initialData,
-}: OrganizationFormProps) {
+function OrganizationForm({ onContinue, onValidationFail, initialData }: OrganizationFormProps) {
   const [formData, setFormData] = useState<OrganizationFormData>(
     initialData || {
-      organizationName: "",
-      legalEntityName: "",
-      registrationNumber: "",
-      industry: "",
-      numberOfEmployees: "",
-      annualRevenue: "",
-      country: "",
-      businessAddress: "",
+      organizationName: '',
+      legalEntityName: '',
+      registrationNumber: '',
+      industry: '',
+      numberOfEmployees: '',
+      annualRevenue: '',
+      country: '',
+      businessAddress: '',
     }
   );
 
@@ -40,27 +36,27 @@ function OrganizationForm({
 
   // Fetch industries from API
   const { data: industries, isLoading: loadingIndustries } = useQuery({
-    queryKey: ["industries"],
+    queryKey: ['industries'],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3001/industry");
+      const res = await fetch('http://localhost:3001/industry');
       return res.json();
     },
   });
 
   // Fetch employee ranges from API
   const { data: employeeRanges, isLoading: loadingEmployees } = useQuery({
-    queryKey: ["employeeRanges"],
+    queryKey: ['employeeRanges'],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3001/number-of-employees");
+      const res = await fetch('http://localhost:3001/number-of-employees');
       return res.json();
     },
   });
 
   // Fetch countries from API
   const { data: countries, isLoading: loadingCountries } = useQuery({
-    queryKey: ["countries"],
+    queryKey: ['countries'],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3001/country");
+      const res = await fetch('http://localhost:3001/country');
       return res.json();
     },
   });
@@ -68,7 +64,7 @@ function OrganizationForm({
   const handleChange = (field: keyof OrganizationFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors((prev) => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: '' }));
     }
   };
 
@@ -76,16 +72,16 @@ function OrganizationForm({
     const newErrors: Record<string, string> = {};
 
     if (!formData.organizationName.trim()) {
-      newErrors.organizationName = "Organization name is required";
+      newErrors.organizationName = 'Organization name is required';
     }
     if (!formData.legalEntityName.trim()) {
-      newErrors.legalEntityName = "Legal entity name is required";
+      newErrors.legalEntityName = 'Legal entity name is required';
     }
     if (!formData.industry) {
-      newErrors.industry = "Please select an industry";
+      newErrors.industry = 'Please select an industry';
     }
     if (!formData.country) {
-      newErrors.country = "Please select a country";
+      newErrors.country = 'Please select a country';
     }
 
     setErrors(newErrors);
@@ -112,17 +108,13 @@ function OrganizationForm({
           <input
             type="text"
             value={formData.organizationName}
-            onChange={(e) => handleChange("organizationName", e.target.value)}
+            onChange={(e) => handleChange('organizationName', e.target.value)}
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.organizationName ? "border-red-500" : "border-gray-300"
+              errors.organizationName ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Acme Inc."
           />
-          {errors.organizationName && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.organizationName}
-            </p>
-          )}
+          {errors.organizationName && <p className="text-red-500 text-sm mt-1">{errors.organizationName}</p>}
         </div>
 
         {/* Legal Entity Name */}
@@ -133,34 +125,26 @@ function OrganizationForm({
           <input
             type="text"
             value={formData.legalEntityName}
-            onChange={(e) => handleChange("legalEntityName", e.target.value)}
+            onChange={(e) => handleChange('legalEntityName', e.target.value)}
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.legalEntityName ? "border-red-500" : "border-gray-300"
+              errors.legalEntityName ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Acme Incorporated LLC"
           />
-          {errors.legalEntityName && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.legalEntityName}
-            </p>
-          )}
+          {errors.legalEntityName && <p className="text-red-500 text-sm mt-1">{errors.legalEntityName}</p>}
         </div>
 
         {/* Registration Number */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Registration Number
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Registration Number</label>
           <input
             type="text"
             value={formData.registrationNumber}
-            onChange={(e) => handleChange("registrationNumber", e.target.value)}
+            onChange={(e) => handleChange('registrationNumber', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="12-3456789"
           />
-          <p className="text-xs text-gray-500 mt-1">
-            EIN, VAT, or company registration number
-          </p>
+          <p className="text-xs text-gray-500 mt-1">EIN, VAT, or company registration number</p>
         </div>
 
         {/* Industry */}
@@ -170,9 +154,9 @@ function OrganizationForm({
           </label>
           <select
             value={formData.industry}
-            onChange={(e) => handleChange("industry", e.target.value)}
+            onChange={(e) => handleChange('industry', e.target.value)}
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.industry ? "border-red-500" : "border-gray-300"
+              errors.industry ? 'border-red-500' : 'border-gray-300'
             }`}
             disabled={loadingIndustries}
           >
@@ -183,26 +167,22 @@ function OrganizationForm({
               </option>
             ))}
           </select>
-          {errors.industry && (
-            <p className="text-red-500 text-sm mt-1">{errors.industry}</p>
-          )}
+          {errors.industry && <p className="text-red-500 text-sm mt-1">{errors.industry}</p>}
         </div>
 
         {/* Number of Employees */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Number of Employees
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Number of Employees</label>
           <select
             value={formData.numberOfEmployees}
-            onChange={(e) => handleChange("numberOfEmployees", e.target.value)}
+            onChange={(e) => handleChange('numberOfEmployees', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             disabled={loadingEmployees}
           >
             <option value="">Select range</option>
             {employeeRanges?.map((range: any) => (
               <option key={range.id} value={range.id}>
-                {range.label}
+                {range.name}
               </option>
             ))}
           </select>
@@ -210,13 +190,11 @@ function OrganizationForm({
 
         {/* Annual Revenue */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Annual Revenue (USD)
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Annual Revenue (USD)</label>
           <input
             type="text"
             value={formData.annualRevenue}
-            onChange={(e) => handleChange("annualRevenue", e.target.value)}
+            onChange={(e) => handleChange('annualRevenue', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="1000000"
           />
@@ -229,9 +207,9 @@ function OrganizationForm({
           </label>
           <select
             value={formData.country}
-            onChange={(e) => handleChange("country", e.target.value)}
+            onChange={(e) => handleChange('country', e.target.value)}
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.country ? "border-red-500" : "border-gray-300"
+              errors.country ? 'border-red-500' : 'border-gray-300'
             }`}
             disabled={loadingCountries}
           >
@@ -242,20 +220,16 @@ function OrganizationForm({
               </option>
             ))}
           </select>
-          {errors.country && (
-            <p className="text-red-500 text-sm mt-1">{errors.country}</p>
-          )}
+          {errors.country && <p className="text-red-500 text-sm mt-1">{errors.country}</p>}
         </div>
 
         {/* Business Address */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Business Address
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Business Address</label>
           <input
             type="text"
             value={formData.businessAddress}
-            onChange={(e) => handleChange("businessAddress", e.target.value)}
+            onChange={(e) => handleChange('businessAddress', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="123 Financial District, Suite 100"
           />
