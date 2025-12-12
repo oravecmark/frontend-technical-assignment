@@ -1,11 +1,13 @@
-import { useState } from "react";
-import AccordionComponent from "./AccordionComponent";
-import TenantForm, { type TenantFormData } from "./TenantForm";
+import { useState } from 'react';
+import AccordionComponent from './AccordionComponent';
+import TenantForm, { type TenantFormData } from './TenantForm';
+import OrganizationForm, { type OrganizationFormData } from './OrganizationForm';
 
 function OnboardingFlow() {
   const [openSection, setOpenSection] = useState<number>(1);
   const [completedSections, setCompletedSections] = useState<number[]>([]);
   const [tenantData, setTenantData] = useState<TenantFormData | null>(null);
+  const [organizationData, setOrganizationData] = useState<OrganizationFormData | null>(null);
 
   const toggleSection = (section: number) => {
     setOpenSection(openSection === section ? 0 : section);
@@ -17,28 +19,27 @@ function OnboardingFlow() {
     setOpenSection(2); // Open next section
   };
 
+  const handleOrganizationContinue = (data: OrganizationFormData) => {
+    setOrganizationData(data);
+    setCompletedSections((prev) => [...prev, 2]);
+    setOpenSection(3); // Open next section
+  };
+
   const progress = (completedSections.length / 3) * 100;
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-lg shadow p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Organization Onboarding
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Organization Onboarding</h1>
           <p className="text-gray-600 mb-8">
-            Complete the following sections to set up your organization on the
-            platform.
+            Complete the following sections to set up your organization on the platform.
           </p>
 
           <div className="mb-6">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-medium text-gray-700">
-                Onboarding Progress
-              </span>
-              <span className="text-sm text-gray-500">
-                {completedSections.length} of 3 completed
-              </span>
+              <span className="text-sm font-medium text-gray-700">Onboarding Progress</span>
+              <span className="text-sm text-gray-500">{completedSections.length} of 3 completed</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
@@ -73,7 +74,13 @@ function OnboardingFlow() {
             isCompleted={completedSections.includes(2)}
             onToggle={() => toggleSection(2)}
           >
-            <p className="text-gray-600">Organization form coming next...</p>
+            <OrganizationForm
+              onContinue={handleOrganizationContinue}
+              onValidationFail={() => {
+                setCompletedSections((prev) => prev.filter((s) => s !== 2));
+              }}
+              initialData={organizationData || undefined}
+            />
           </AccordionComponent>
 
           <AccordionComponent
