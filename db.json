@@ -154,6 +154,27 @@
           "color": "#F59E0B"
         }
       ]
+    },
+    {
+      "id": "7659",
+      "tenant": {
+        "tenantName": "hfghfgh",
+        "tenantIdentifier": "gfhfgh",
+        "environment": "1",
+        "dataRegion": "2",
+        "multiCurrency": false
+      },
+      "organization": {
+        "organizationName": "dhgfh",
+        "legalEntityName": "fghfgdh",
+        "registrationNumber": "fdghfdh",
+        "industry": "2",
+        "numberOfEmployees": "2",
+        "annualRevenue": "1000",
+        "country": "4",
+        "businessAddress": "g"
+      },
+      "labels": []
     }
   ],
   "environment": [

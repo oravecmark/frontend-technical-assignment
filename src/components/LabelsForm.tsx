@@ -28,8 +28,8 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
   const [newLabelName, setNewLabelName] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
-  // Fetch colors from API
   const { data: colors, isLoading: loadingColors } = useQuery({
     queryKey: ['colors'],
     queryFn: async () => {
@@ -38,7 +38,33 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
     },
   });
 
+  const handleBlur = (field: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+
+    if (field === 'labelName' && !newLabelName.trim()) {
+      setErrors((prev) => ({ ...prev, labelName: 'Label name is required' }));
+    } else if (field === 'labelName') {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.labelName;
+        return newErrors;
+      });
+    }
+
+    if (field === 'color' && !selectedColor) {
+      setErrors((prev) => ({ ...prev, color: 'Please select a color' }));
+    } else if (field === 'color') {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.color;
+        return newErrors;
+      });
+    }
+  };
+
   const handleAddLabel = () => {
+    setTouched({ labelName: true, color: true });
+
     const newErrors: Record<string, string> = {};
 
     if (!newLabelName.trim()) {
@@ -63,6 +89,7 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
     setNewLabelName('');
     setSelectedColor('');
     setErrors({});
+    setTouched({});
   };
 
   const handleRemoveLabel = (id: string) => {
@@ -72,6 +99,13 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onComplete({ labels });
+  };
+
+  const showValidation = (field: string) => touched[field];
+  const isFieldValid = (field: 'labelName' | 'color') => {
+    if (field === 'labelName') return newLabelName.trim().length > 0 && !errors.labelName;
+    if (field === 'color') return selectedColor.length > 0 && !errors.color;
+    return false;
   };
 
   return (
@@ -118,12 +152,30 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
                 setNewLabelName(e.target.value);
                 if (errors.labelName) setErrors((prev) => ({ ...prev, labelName: '' }));
               }}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                errors.labelName ? 'border-red-500' : 'border-gray-300'
+              onBlur={() => handleBlur('labelName')}
+              className={`w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                showValidation('labelName')
+                  ? errors.labelName
+                    ? 'border-red-500'
+                    : isFieldValid('labelName')
+                    ? 'border-green-500'
+                    : 'border-gray-300'
+                  : 'border-gray-300'
               }`}
               placeholder="Enter label name"
             />
-            {errors.labelName && <p className="text-red-500 text-sm mt-1">{errors.labelName}</p>}
+            {showValidation('labelName') && errors.labelName && (
+              <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                <span>⊗</span>
+                {errors.labelName}
+              </p>
+            )}
+            {showValidation('labelName') && isFieldValid('labelName') && !errors.labelName && (
+              <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
+                <span>✓</span>
+                Valid
+              </p>
+            )}
           </div>
 
           {/* Color Picker */}
@@ -140,6 +192,7 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
                     onClick={() => {
                       setSelectedColor(color.hex);
                       if (errors.color) setErrors((prev) => ({ ...prev, color: '' }));
+                      setTouched((prev) => ({ ...prev, color: true }));
                     }}
                     className={`w-8 h-8 rounded-full border-2 transition-all ${
                       selectedColor === color.hex ? 'border-gray-900 scale-110' : 'border-gray-300 hover:scale-105'
@@ -150,7 +203,12 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
                 ))
               )}
             </div>
-            {errors.color && <p className="text-red-500 text-sm mt-1">{errors.color}</p>}
+            {showValidation('color') && errors.color && (
+              <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                <span>⊗</span>
+                {errors.color}
+              </p>
+            )}
           </div>
 
           {/* Add Button */}
@@ -167,7 +225,6 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
         </div>
       </div>
 
-      {/* Complete Setup Button */}
       <div className="flex justify-end pt-4 border-t">
         <button
           type="submit"
