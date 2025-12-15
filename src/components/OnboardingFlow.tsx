@@ -5,6 +5,7 @@ import OrganizationForm, { type OrganizationFormData } from './OrganizationForm'
 import LabelsForm, { type LabelsFormData } from './LabelsForm';
 import SuccessScreen from './SuccessScreen';
 import { BuildingOffice2Icon, BuildingLibraryIcon, TagIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
 
 function OnboardingFlow() {
   const [openSection, setOpenSection] = useState<number>(1);
@@ -14,6 +15,7 @@ function OnboardingFlow() {
   const [labelsData, setLabelsData] = useState<LabelsFormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSection = (section: number) => {
     setOpenSection(openSection === section ? 0 : section);
@@ -50,7 +52,18 @@ function OnboardingFlow() {
     setIsSubmitting(true);
 
     try {
+      // Get current user from localStorage
+      const currentUserStr = localStorage.getItem('currentUser');
+      if (!currentUserStr) {
+        alert('No user logged in. Please log in again.');
+        navigate('/login');
+        return;
+      }
+
+      const currentUser = JSON.parse(currentUserStr);
+
       const submissionData = {
+        userId: currentUser.id,
         tenant,
         organization,
         labels: labels.labels,
@@ -68,7 +81,7 @@ function OnboardingFlow() {
         throw new Error('Submission failed');
       }
 
-      setIsComplete(true);
+      navigate('/dashboard');
     } catch (error) {
       console.error('Submission error:', error);
       alert('Failed to submit form. Please try again.');

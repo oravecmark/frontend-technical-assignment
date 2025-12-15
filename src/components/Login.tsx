@@ -66,10 +66,12 @@ function Login() {
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
     formData.password.length > 0;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setTouched({ email: true, password: true });
 
+    // Validate
     const newErrors: Record<string, string> = {};
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
@@ -85,12 +87,45 @@ function Login() {
       return;
     }
 
-    if (formData.email === VALID_EMAIL && formData.password === VALID_PASSWORD) {
+    // Fetch user from API
+    try {
+      const response = await fetch(`http://localhost:3001/users?email=${formData.email}`);
+      const users = await response.json();
+
+      if (users.length === 0) {
+        setErrors({
+          email: 'Invalid email or password',
+          password: 'Invalid email or password',
+        });
+        return;
+      }
+
+      const user = users[0];
+
+      if (user.password !== formData.password) {
+        setErrors({
+          email: 'Invalid email or password',
+          password: 'Invalid email or password',
+        });
+        return;
+      }
+
+      localStorage.setItem(
+        'currentUser',
+        JSON.stringify({
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        })
+      );
+
       navigate('/onboarding');
-    } else {
+    } catch (error) {
+      console.error('Login error:', error);
       setErrors({
-        email: 'Invalid email or password',
-        password: 'Invalid email or password',
+        email: 'Login failed. Please try again.',
+        password: 'Login failed. Please try again.',
       });
     }
   };
