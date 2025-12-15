@@ -165,6 +165,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
             value={formData.organizationName}
             onChange={(e) => handleChange('organizationName', e.target.value)}
             onBlur={() => handleBlur('organizationName')}
+            maxLength={60}
             className={`w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               showValidation('organizationName')
                 ? errors.organizationName
@@ -200,6 +201,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
             value={formData.legalEntityName}
             onChange={(e) => handleChange('legalEntityName', e.target.value)}
             onBlur={() => handleBlur('legalEntityName')}
+            maxLength={100}
             className={`w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               showValidation('legalEntityName')
                 ? errors.legalEntityName
@@ -232,6 +234,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
             type="text"
             value={formData.registrationNumber}
             onChange={(e) => handleChange('registrationNumber', e.target.value)}
+            maxLength={50}
             className="w-full px-3 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="12-3456789"
           />
@@ -379,6 +382,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
             type="text"
             value={formData.businessAddress}
             onChange={(e) => handleChange('businessAddress', e.target.value)}
+            maxLength={200}
             className="w-full px-3 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="123 Financial District, Suite 100"
           />

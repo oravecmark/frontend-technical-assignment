@@ -17,6 +17,8 @@ function Dashboard() {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [selectedOrgIndex, setSelectedOrgIndex] = useState(0);
+  const [isOrgDropdownOpen, setIsOrgDropdownOpen] = useState(false);
 
   // Get current user from localStorage
   const currentUserStr = localStorage.getItem('currentUser');
@@ -28,6 +30,17 @@ function Dashboard() {
       navigate('/login');
     }
   }, [currentUser, navigate]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOrgDropdownOpen) {
+        setIsOrgDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isOrgDropdownOpen]);
 
   // Fetch user's submissions
   const { data: submissions, isLoading } = useQuery({
@@ -74,7 +87,7 @@ function Dashboard() {
   });
 
   // Get the most recent submission
-  const latestSubmission = submissions && submissions.length > 0 ? submissions[submissions.length - 1] : null;
+  const latestSubmission = submissions && submissions.length > 0 ? submissions[selectedOrgIndex] : null;
 
   // Helper functions to get names from IDs
   const getEnvironmentName = (id: string) => {
@@ -209,11 +222,79 @@ function Dashboard() {
         <div className="bg-white border-b border-gray-200 px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 relative">
                 <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-semibold text-sm">
                   {getInitial(latestSubmission.organization.organizationName)}
                 </div>
-                <span className="font-medium text-gray-900">{latestSubmission.organization.organizationName}</span>
+
+                {/* Dropdown Button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsOrgDropdownOpen(!isOrgDropdownOpen);
+                  }}
+                  className="flex items-center gap-2 font-medium text-gray-900 hover:text-gray-700 transition-colors"
+                >
+                  <span
+                    className="truncate w-[200px] inline-block text-left"
+                    title={latestSubmission.organization.organizationName}
+                  >
+                    {latestSubmission.organization.organizationName}
+                  </span>
+                  <svg
+                    className={`w-4 h-4 transition-transform flex-shrink-0 ${isOrgDropdownOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu */}
+                {isOrgDropdownOpen && submissions && submissions.length > 1 && (
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                    <div className="p-2">
+                      <div className="text-xs font-medium text-gray-500 px-3 py-2">Switch Organization</div>
+                      {submissions.map((submission: any, index: number) => (
+                        <button
+                          key={submission.id || index}
+                          onClick={() => {
+                            setSelectedOrgIndex(index);
+                            setIsOrgDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3 py-2 rounded-md flex items-center gap-3 hover:bg-gray-50 transition-colors ${
+                            index === selectedOrgIndex ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                          }`}
+                        >
+                          <div
+                            className={`w-8 h-8 rounded flex items-center justify-center text-sm font-semibold ${
+                              index === selectedOrgIndex ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                            }`}
+                          >
+                            {getInitial(submission.organization.organizationName)}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium truncate">{submission.organization.organizationName}</div>
+                            <div className="text-xs text-gray-500">
+                              {getIndustryName(submission.organization.industry)}
+                            </div>
+                          </div>
+                          {index === selectedOrgIndex && (
+                            <svg
+                              className="w-5 h-5 text-blue-600"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
@@ -272,7 +353,12 @@ function Dashboard() {
                   <BuildingOffice2Icon className="w-5 h-5 text-blue-600" />
                 </div>
               </div>
-              <div className="text-2xl font-bold text-gray-900 mb-1">{latestSubmission.tenant.tenantName}</div>
+              <div
+                className="text-2xl font-bold text-gray-900 mb-1 truncate"
+                title={latestSubmission.tenant.tenantName}
+              >
+                {latestSubmission.tenant.tenantName}
+              </div>
               <p className="text-sm text-gray-500">
                 {getEnvironmentName(latestSubmission.tenant.environment)} •{' '}
                 {getRegionName(latestSubmission.tenant.dataRegion)}

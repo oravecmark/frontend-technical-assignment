@@ -141,6 +141,168 @@
           "color": "#327FFF"
         }
       ]
+    },
+    {
+      "id": "928c",
+      "userId": "1",
+      "tenant": {
+        "tenantName": "test tenant",
+        "tenantIdentifier": "test identif",
+        "environment": "3",
+        "dataRegion": "5",
+        "multiCurrency": false
+      },
+      "organization": {
+        "organizationName": "Laco",
+        "legalEntityName": "Laco Pucinsky",
+        "registrationNumber": "9119",
+        "industry": "5",
+        "numberOfEmployees": "5",
+        "annualRevenue": "42069",
+        "country": "6",
+        "businessAddress": "Test Ulica 18"
+      },
+      "labels": [
+        {
+          "id": "1",
+          "name": "High Priority",
+          "color": "#EF4444"
+        },
+        {
+          "id": "2",
+          "name": "Revenue",
+          "color": "#10B981"
+        },
+        {
+          "id": "3",
+          "name": "Expense",
+          "color": "#F59E0B"
+        },
+        {
+          "id": "1765818442905",
+          "name": "Test Label",
+          "color": "#F66900"
+        }
+      ]
+    },
+    {
+      "id": "de40",
+      "userId": "1",
+      "tenant": {
+        "tenantName": "Test 2",
+        "tenantIdentifier": "Test 2 Identifier",
+        "environment": "2",
+        "dataRegion": "1",
+        "multiCurrency": true
+      },
+      "organization": {
+        "organizationName": "Test 2 new org",
+        "legalEntityName": "Test 2 LLC",
+        "registrationNumber": "1999",
+        "industry": "1",
+        "numberOfEmployees": "3",
+        "annualRevenue": "69420",
+        "country": "1",
+        "businessAddress": "Test Ulica 15"
+      },
+      "labels": [
+        {
+          "id": "1",
+          "name": "High Priority",
+          "color": "#EF4444"
+        },
+        {
+          "id": "2",
+          "name": "Revenue",
+          "color": "#10B981"
+        },
+        {
+          "id": "3",
+          "name": "Expense",
+          "color": "#F59E0B"
+        },
+        {
+          "id": "1765818955439",
+          "name": "Another Test Label",
+          "color": "#3BBBA7"
+        }
+      ]
+    },
+    {
+      "id": "c14c",
+      "userId": "2",
+      "tenant": {
+        "tenantName": "dfsdf",
+        "tenantIdentifier": "sdfasf",
+        "environment": "1",
+        "dataRegion": "3",
+        "multiCurrency": true
+      },
+      "organization": {
+        "organizationName": "Test & Co. \"Special\" Characters!",
+        "legalEntityName": "gdfgb",
+        "registrationNumber": "1235",
+        "industry": "2",
+        "numberOfEmployees": "2",
+        "annualRevenue": "20",
+        "country": "4",
+        "businessAddress": "ulicaaa"
+      },
+      "labels": [
+        {
+          "id": "1",
+          "name": "High Priority",
+          "color": "#EF4444"
+        },
+        {
+          "id": "2",
+          "name": "Revenue",
+          "color": "#10B981"
+        },
+        {
+          "id": "3",
+          "name": "Expense",
+          "color": "#F59E0B"
+        }
+      ]
+    },
+    {
+      "id": "bc81",
+      "userId": "2",
+      "tenant": {
+        "tenantName": "This is an extremely long organization name that should still work properly without breaking anything",
+        "tenantIdentifier": "vdgvdfv",
+        "environment": "1",
+        "dataRegion": "2",
+        "multiCurrency": true
+      },
+      "organization": {
+        "organizationName": "sdvsdv",
+        "legalEntityName": "vbdfvdfv",
+        "registrationNumber": "121465",
+        "industry": "3",
+        "numberOfEmployees": "2",
+        "annualRevenue": "250000",
+        "country": "4",
+        "businessAddress": "losos"
+      },
+      "labels": [
+        {
+          "id": "1",
+          "name": "High Priority",
+          "color": "#EF4444"
+        },
+        {
+          "id": "2",
+          "name": "Revenue",
+          "color": "#10B981"
+        },
+        {
+          "id": "3",
+          "name": "Expense",
+          "color": "#F59E0B"
+        }
+      ]
     }
   ],
   "environment": [

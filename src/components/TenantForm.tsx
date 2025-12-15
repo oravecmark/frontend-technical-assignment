@@ -136,6 +136,7 @@ function TenantForm({ onContinue, onValidationFail, initialData }: TenantFormPro
             value={formData.tenantName}
             onChange={(e) => handleChange('tenantName', e.target.value)}
             onBlur={() => handleBlur('tenantName')}
+            maxLength={60}
             className={`w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               showValidation('tenantName')
                 ? errors.tenantName
@@ -172,6 +173,7 @@ function TenantForm({ onContinue, onValidationFail, initialData }: TenantFormPro
             value={formData.tenantIdentifier}
             onChange={(e) => handleChange('tenantIdentifier', e.target.value)}
             onBlur={() => handleBlur('tenantIdentifier')}
+            maxLength={50}
             className={`w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               showValidation('tenantIdentifier')
                 ? errors.tenantIdentifier
