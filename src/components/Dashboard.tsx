@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BuildingOffice2Icon,
   BuildingLibraryIcon,
@@ -11,10 +11,12 @@ import {
   Cog6ToothIcon,
 } from '@heroicons/react/24/outline';
 import { useToast } from '../contexts/ToastContext';
+import LoadingSpinner from './LoadingSpinner';
 
 function Dashboard() {
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // Get current user from localStorage
   const currentUserStr = localStorage.getItem('currentUser');
@@ -129,9 +131,14 @@ function Dashboard() {
     );
   }
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     localStorage.removeItem('currentUser');
     showToast('Logged out successfully', 'success');
+
     setTimeout(() => {
       navigate('/login');
     }, 500);
@@ -239,9 +246,22 @@ function Dashboard() {
         </div>
 
         <div className="p-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-            <p className="text-gray-600">Overview for {latestSubmission.organization.organizationName} / Production</p>
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+              <p className="text-gray-600">
+                Overview for {latestSubmission.organization.organizationName} / Production
+              </p>
+            </div>
+            <button
+              onClick={() => navigate('/onboarding')}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2 font-medium"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              New Organization
+            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -349,6 +369,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      {isLoggingOut && <LoadingSpinner message="Logging out..." />}
     </div>
   );
 }

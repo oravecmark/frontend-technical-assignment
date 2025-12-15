@@ -131,11 +131,17 @@ function Login() {
         })
       );
 
-      showToast('Login successful!', 'success');
+      // Check if user has any organizations
+      const submissionsResponse = await fetch(`http://localhost:3001/submission?userId=${user.id}`);
+      const submissions = await submissionsResponse.json();
 
-      // Delay navigation slightly to show success message
+      showToast('Login successful!', 'success');
       setTimeout(() => {
-        navigate('/onboarding');
+        if (submissions.length > 0) {
+          navigate('/dashboard');
+        } else {
+          navigate('/onboarding');
+        }
       }, 500);
     } catch (error) {
       console.error('Login error:', error);
