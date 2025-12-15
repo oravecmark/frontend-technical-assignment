@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
+import LoadingSpinner from './LoadingSpinner';
+import { useToast } from '../contexts/ToastContext';
 
 function Login() {
   const navigate = useNavigate();
@@ -10,6 +12,8 @@ function Login() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const { showToast } = useToast();
 
   const VALID_EMAIL = 'admin@financehub.com';
   const VALID_PASSWORD = 'password123';
@@ -71,7 +75,6 @@ function Login() {
 
     setTouched({ email: true, password: true });
 
-    // Validate
     const newErrors: Record<string, string> = {};
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
@@ -87,8 +90,12 @@ function Login() {
       return;
     }
 
-    // Fetch user from API
+    setIsLoading(true);
+
     try {
+      // Simulate network delay
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       const response = await fetch(`http://localhost:3001/users?email=${formData.email}`);
       const users = await response.json();
 
@@ -97,6 +104,8 @@ function Login() {
           email: 'Invalid email or password',
           password: 'Invalid email or password',
         });
+        showToast('Invalid credentials', 'error');
+        setIsLoading(false);
         return;
       }
 
@@ -107,6 +116,8 @@ function Login() {
           email: 'Invalid email or password',
           password: 'Invalid email or password',
         });
+        showToast('Invalid credentials', 'error');
+        setIsLoading(false);
         return;
       }
 
@@ -120,13 +131,16 @@ function Login() {
         })
       );
 
-      navigate('/onboarding');
+      showToast('Login successful!', 'success');
+
+      // Delay navigation slightly to show success message
+      setTimeout(() => {
+        navigate('/onboarding');
+      }, 500);
     } catch (error) {
       console.error('Login error:', error);
-      setErrors({
-        email: 'Login failed. Please try again.',
-        password: 'Login failed. Please try again.',
-      });
+      showToast('Login failed. Please try again.', 'error');
+      setIsLoading(false);
     }
   };
 
@@ -279,6 +293,7 @@ function Login() {
           </div>
         </div>
       </div>
+      {isLoading && <LoadingSpinner message="Signing in..." />}
     </div>
   );
 }

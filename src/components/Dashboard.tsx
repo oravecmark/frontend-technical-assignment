@@ -10,9 +10,11 @@ import {
   UserGroupIcon,
   Cog6ToothIcon,
 } from '@heroicons/react/24/outline';
+import { useToast } from '../contexts/ToastContext';
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   // Get current user from localStorage
   const currentUserStr = localStorage.getItem('currentUser');
@@ -127,6 +129,14 @@ function Dashboard() {
     );
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('currentUser');
+    showToast('Logged out successfully', 'success');
+    setTimeout(() => {
+      navigate('/login');
+    }, 500);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
@@ -170,10 +180,19 @@ function Dashboard() {
         </nav>
 
         <div className="p-4 border-t border-gray-200">
-          <button className="w-full flex items-center justify-center py-2 text-gray-500 hover:text-gray-700">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-md text-left font-medium"
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
             </svg>
+            Logout
           </button>
         </div>
       </div>

@@ -6,6 +6,8 @@ import LabelsForm, { type LabelsFormData } from './LabelsForm';
 import SuccessScreen from './SuccessScreen';
 import { BuildingOffice2Icon, BuildingLibraryIcon, TagIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from './LoadingSpinner';
+import { useToast } from '../contexts/ToastContext';
 
 function OnboardingFlow() {
   const [openSection, setOpenSection] = useState<number>(1);
@@ -16,6 +18,7 @@ function OnboardingFlow() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const toggleSection = (section: number) => {
     setOpenSection(openSection === section ? 0 : section);
@@ -52,10 +55,9 @@ function OnboardingFlow() {
     setIsSubmitting(true);
 
     try {
-      // Get current user from localStorage
       const currentUserStr = localStorage.getItem('currentUser');
       if (!currentUserStr) {
-        alert('No user logged in. Please log in again.');
+        showToast('No user logged in. Please log in again.', 'error');
         navigate('/login');
         return;
       }
@@ -69,6 +71,9 @@ function OnboardingFlow() {
         labels: labels.labels,
       };
 
+      // Simulate loading delay
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       const response = await fetch('http://localhost:3001/submission', {
         method: 'POST',
         headers: {
@@ -81,11 +86,16 @@ function OnboardingFlow() {
         throw new Error('Submission failed');
       }
 
-      navigate('/dashboard');
+      // Show success message
+      showToast('Organization created successfully!', 'success');
+
+      // Small delay to let user see the success message
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 800);
     } catch (error) {
       console.error('Submission error:', error);
-      alert('Failed to submit form. Please try again.');
-    } finally {
+      showToast('Failed to submit form. Please try again.', 'error');
       setIsSubmitting(false);
     }
   };
@@ -181,6 +191,7 @@ function OnboardingFlow() {
           </AccordionComponent>
         </div>
       </div>
+      {isSubmitting && <LoadingSpinner message="Creating your organization..." />}
     </div>
   );
 }
