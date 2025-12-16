@@ -172,6 +172,36 @@ function Dashboard() {
     }, 500);
   };
 
+  const handleDeleteOrg = async () => {
+    if (!latestSubmission?.id) return;
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${latestSubmission.organization.organizationName}"? This action cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    setIsLoggingOut(true);
+
+    try {
+      const response = await fetch(`http://localhost:3001/submission/${latestSubmission.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) throw new Error('Delete failed');
+
+      showToast('Organization deleted successfully', 'success');
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.error('Delete error:', error);
+      showToast('Failed to delete organization', 'error');
+      setIsLoggingOut(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
@@ -359,6 +389,23 @@ function Dashboard() {
                 </svg>
                 <span>Onboarding Complete</span>
               </div>
+              {submissions && submissions.length > 1 && (
+                <button
+                  onClick={handleDeleteOrg}
+                  className="px-4 py-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 flex items-center gap-2 font-medium"
+                  title="Delete current organization"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                  Delete
+                </button>
+              )}
               <button
                 onClick={() => navigate('/onboarding')}
                 className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2 font-medium"
@@ -481,30 +528,92 @@ function Dashboard() {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
             {submissions && submissions.length > 0 ? (
               <div className="space-y-4">
-                {submissions
-                  .slice()
-                  .reverse()
-                  .slice(0, 5)
-                  .map((submission: any, index: number) => {
-                    const createdDate = submission.createdAt ? new Date(submission.createdAt) : new Date();
-                    const timeAgo = getTimeAgo(createdDate);
+                {(() => {
+                  // Collect all activities (org creation + label creation)
+                  const activities: Array<{
+                    type: 'org' | 'label';
+                    orgName: string;
+                    labelName?: string;
+                    labelColor?: string;
+                    timestamp: string;
+                    key: string;
+                  }> = [];
+
+                  submissions.forEach((submission: any) => {
+                    // Add org creation activity
+                    if (submission.createdAt) {
+                      activities.push({
+                        type: 'org',
+                        orgName: submission.organization.organizationName,
+                        timestamp: submission.createdAt,
+                        key: `org-${submission.id}`,
+                      });
+                    }
+
+                    // Add label creation activities
+                    if (submission.labels) {
+                      submission.labels.forEach((label: any) => {
+                        if (label.createdAt) {
+                          activities.push({
+                            type: 'label',
+                            orgName: submission.organization.organizationName,
+                            labelName: label.name,
+                            labelColor: label.color,
+                            timestamp: label.createdAt,
+                            key: `label-${submission.id}-${label.id}`,
+                          });
+                        }
+                      });
+                    }
+                  });
+
+                  // Sort by timestamp (newest first) and take top 5
+                  const sortedActivities = activities
+                    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+                    .slice(0, 5);
+
+                  return sortedActivities.map((activity) => {
+                    const timeAgo = getTimeAgo(new Date(activity.timestamp));
 
                     return (
                       <div
-                        key={submission.id || index}
+                        key={activity.key}
                         className="flex items-start gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0"
                       >
-                        <div className="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                          <BuildingLibraryIcon className="w-5 h-5 text-blue-600" />
+                        <div
+                          className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
+                            activity.type === 'org' ? 'bg-blue-50' : 'bg-purple-50'
+                          }`}
+                        >
+                          {activity.type === 'org' ? (
+                            <BuildingLibraryIcon className="w-5 h-5 text-blue-600" />
+                          ) : (
+                            <TagIcon className="w-5 h-5 text-purple-600" />
+                          )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">Organization created</p>
-                          <p className="text-sm text-gray-600 mt-0.5">{submission.organization.organizationName}</p>
+                          <p className="text-sm font-medium text-gray-900">
+                            {activity.type === 'org' ? 'Organization created' : 'Label added'}
+                          </p>
+                          <p className="text-sm text-gray-600 mt-0.5">
+                            {activity.type === 'org' ? (
+                              activity.orgName
+                            ) : (
+                              <>
+                                <span
+                                  className="inline-block w-3 h-3 rounded-full mr-2"
+                                  style={{ backgroundColor: activity.labelColor }}
+                                />
+                                {activity.labelName} • {activity.orgName}
+                              </>
+                            )}
+                          </p>
                         </div>
                         <div className="flex-shrink-0 text-xs text-gray-500">{timeAgo}</div>
                       </div>
                     );
-                  })}
+                  });
+                })()}
               </div>
             ) : (
               <p className="text-sm text-gray-500">No activity yet</p>

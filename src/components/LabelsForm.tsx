@@ -15,13 +15,15 @@ export interface Label {
   id: string;
   name: string;
   color: string;
+  createdAt?: string;
 }
 
 function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormProps) {
+  const now = new Date().toISOString();
   const defaultLabels: Label[] = [
-    { id: '1', name: 'High Priority', color: '#EF4444' },
-    { id: '2', name: 'Revenue', color: '#10B981' },
-    { id: '3', name: 'Expense', color: '#F59E0B' },
+    { id: '1', name: 'High Priority', color: '#EF4444', createdAt: now },
+    { id: '2', name: 'Revenue', color: '#10B981', createdAt: now },
+    { id: '3', name: 'Expense', color: '#F59E0B', createdAt: now },
   ];
 
   const [labels, setLabels] = useState<Label[]>(initialData?.labels || defaultLabels);
@@ -83,6 +85,7 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
       id: Date.now().toString(),
       name: newLabelName.trim(),
       color: selectedColor,
+      createdAt: new Date().toISOString(),
     };
 
     setLabels((prev) => [...prev, newLabel]);
