@@ -248,6 +248,7 @@ Each of the 3 users has a different setting so you can try multiple scenarios wh
 Marek Oravec
 
 - GitHub: [@oravecmark](https://github.com/oravecmark)
+- Repo link: https://github.com/oravecmark/frontend-technical-assignment
 
 ## 📄 License
 
