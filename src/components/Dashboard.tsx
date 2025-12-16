@@ -334,18 +334,39 @@ function Dashboard() {
                 Overview for {latestSubmission.organization.organizationName} / Production
               </p>
             </div>
-            <button
-              onClick={() => navigate('/onboarding')}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2 font-medium"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-              New Organization
-            </button>
+            <div className="flex items-center gap-3">
+              <div
+                className="flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-full text-sm font-medium"
+                title="Onboarding completed"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Onboarding Complete</span>
+              </div>
+              <button
+                onClick={() => navigate('/onboarding')}
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2 font-medium"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                New Organization
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-medium text-gray-500">Total Organizations</h3>
+                <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center">
+                  <BuildingLibraryIcon className="w-5 h-5 text-orange-600" />
+                </div>
+              </div>
+              <div className="text-2xl font-bold text-gray-900 mb-1">{submissions?.length || 0}</div>
+              <p className="text-sm text-gray-500">Organizations created</p>
+            </div>
             <div className="bg-white rounded-lg border border-gray-200 p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-medium text-gray-500">Tenant</h3>
@@ -385,19 +406,6 @@ function Dashboard() {
               </div>
               <div className="text-2xl font-bold text-gray-900 mb-1">{latestSubmission.labels.length}</div>
               <p className="text-sm text-gray-500">Categories configured</p>
-            </div>
-
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-medium text-gray-500">Onboarding</h3>
-                <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </div>
-              <div className="text-2xl font-bold text-gray-900 mb-1">Complete</div>
-              <p className="text-sm text-gray-500">All sections finished</p>
             </div>
           </div>
 
