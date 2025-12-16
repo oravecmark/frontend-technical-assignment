@@ -3,7 +3,6 @@ import AccordionComponent from './AccordionComponent';
 import TenantForm, { type TenantFormData } from './TenantForm';
 import OrganizationForm, { type OrganizationFormData } from './OrganizationForm';
 import LabelsForm, { type LabelsFormData } from './LabelsForm';
-import SuccessScreen from './SuccessScreen';
 import { BuildingOffice2Icon, BuildingLibraryIcon, TagIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
@@ -16,7 +15,6 @@ function OnboardingFlow() {
   const [organizationData, setOrganizationData] = useState<OrganizationFormData | null>(null);
   const [labelsData, setLabelsData] = useState<LabelsFormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
   const navigate = useNavigate();
   const { showToast } = useToast();
 
@@ -43,17 +41,19 @@ function OnboardingFlow() {
       setCompletedSections((prev) => [...prev, 3]);
     }
 
+    // Close all sections to show success
+    setOpenSection(0);
+
     if (!tenantData || !organizationData) {
       alert('Please complete all previous sections before submitting');
       return;
     }
 
-    submitForm(tenantData, organizationData, data);
+    //submitForm(tenantData, organizationData, data);
   };
 
   const submitForm = async (tenant: TenantFormData, organization: OrganizationFormData, labels: LabelsFormData) => {
     setIsSubmitting(true);
-
     try {
       const currentUserStr = localStorage.getItem('currentUser');
       if (!currentUserStr) {
@@ -61,9 +61,7 @@ function OnboardingFlow() {
         navigate('/login');
         return;
       }
-
       const currentUser = JSON.parse(currentUserStr);
-
       const submissionData = {
         userId: currentUser.id,
         createdAt: new Date().toISOString(),
@@ -71,10 +69,8 @@ function OnboardingFlow() {
         organization,
         labels: labels.labels,
       };
-
       // Simulate loading delay
       await new Promise((resolve) => setTimeout(resolve, 2000));
-
       const response = await fetch('http://localhost:3001/submission', {
         method: 'POST',
         headers: {
@@ -82,15 +78,12 @@ function OnboardingFlow() {
         },
         body: JSON.stringify(submissionData),
       });
-
       if (!response.ok) {
         throw new Error('Submission failed');
       }
-
       // Show success message
       showToast('Organization created successfully!', 'success');
-
-      // Small delay to let user see the success message
+      // Navigate to dashboard
       setTimeout(() => {
         navigate('/dashboard');
       }, 800);
@@ -124,18 +117,6 @@ function OnboardingFlow() {
               ></div>
             </div>
           </div>
-
-          {isComplete && (
-            <div className="mb-6">
-              <SuccessScreen />
-            </div>
-          )}
-
-          {isSubmitting && (
-            <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-              <p className="text-blue-700">Submitting your information...</p>
-            </div>
-          )}
 
           <AccordionComponent
             number={1}
@@ -190,6 +171,31 @@ function OnboardingFlow() {
               initialData={labelsData || undefined}
             />
           </AccordionComponent>
+
+          {/* Success Section - Shows inline when all complete */}
+          {completedSections.length === 3 && !isSubmitting && (
+            <div className="mt-6 bg-green-50 border-2 border-green-200 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Onboarding Complete</h2>
+              <p className="text-gray-600 mb-6">
+                All sections have been completed. You can now proceed to your dashboard.
+              </p>
+              <button
+                onClick={() => {
+                  if (tenantData && organizationData && labelsData) {
+                    submitForm(tenantData, organizationData, labelsData);
+                  }
+                }}
+                className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+              >
+                Go to Dashboard
+              </button>
+            </div>
+          )}
         </div>
       </div>
       {isSubmitting && <LoadingSpinner message="Creating your organization..." />}
