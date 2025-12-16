@@ -287,9 +287,9 @@ function Login() {
             <p className="text-sm text-blue-800">
               <strong>Demo credentials:</strong>
               <br />
-              Email: admin@financehub.com
+              Email: admin@financehub.com/marek@financehub.com/john@financehub.com
               <br />
-              Password: password123
+              Password: password123 - for all 3 users
             </p>
           </div>
 

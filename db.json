@@ -23,258 +23,111 @@
     }
   ],
   "submission": [
-    {
-      "id": "55d5",
-      "userId": "2",
-      "createdAt": "2025-12-14T01:33:53.915Z",
-      "tenant": {
-        "tenantName": "Lubomir Pucinsky",
-        "tenantIdentifier": "Lub-Puc",
-        "environment": "1",
-        "dataRegion": "2",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "Pucovanie s Pucom",
-        "legalEntityName": "Pucovnicvto LLC",
-        "registrationNumber": "12",
-        "industry": "1",
-        "numberOfEmployees": "2",
-        "annualRevenue": "45000",
-        "country": "3",
-        "businessAddress": "Okruzna"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B"
-        },
-        {
-          "id": "1765848832658",
-          "name": "Investments",
-          "color": "#327FFF"
-        }
-      ]
+  {
+    "id": "1701234567890",
+    "userId": "1",
+    "createdAt": "2024-12-10T10:30:00.000Z",
+    "tenant": {
+      "tenantName": "Global Finance",
+      "tenantIdentifier": "global-finance",
+      "environment": "production",
+      "dataRegion": "us-west"
     },
-    {
-      "id": "8b77",
-      "userId": "2",
-      "createdAt": "2025-12-16T01:38:38.687Z",
-      "tenant": {
-        "tenantName": "Denis Hakala",
-        "tenantIdentifier": "den-hak",
-        "environment": "2",
-        "dataRegion": "3",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "Hak Inc.",
-        "legalEntityName": "Hakala Industries",
-        "registrationNumber": "23",
-        "industry": "5",
-        "numberOfEmployees": "4",
-        "annualRevenue": "100000",
-        "country": "4",
-        "businessAddress": "Zahradnicka"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B"
-        }
-      ]
+    "organization": {
+      "organizationName": "Global Finance Corp",
+      "legalEntityName": "Global Finance Corporation Ltd",
+      "registrationNumber": "GF-2024-001",
+      "industry": "banking",
+      "numberOfEmployees": "501-1000",
+      "annualRevenue": "50000000",
+      "country": "us",
+      "businessAddress": "123 Wall Street, New York, NY 10005"
     },
-    {
-      "id": "2992",
-      "userId": "2",
-      "createdAt": "2025-12-16T15:12:14.860Z",
-      "tenant": {
-        "tenantName": "dgdfsgd",
-        "tenantIdentifier": "sgdgd",
-        "environment": "2",
-        "dataRegion": "2",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "dgsdfgd",
-        "legalEntityName": "dgdsfgsdg",
-        "registrationNumber": "4165519654",
-        "industry": "4",
-        "numberOfEmployees": "3",
-        "annualRevenue": "20",
-        "country": "5",
-        "businessAddress": "laco"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444",
-          "createdAt": "2025-12-16T15:11:46.370Z"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981",
-          "createdAt": "2025-12-16T15:11:46.370Z"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B",
-          "createdAt": "2025-12-16T15:11:46.370Z"
-        }
-      ]
+    "labels": [
+      { "id": "1", "name": "High Priority", "color": "#EF4444", "createdAt": "2024-12-10T10:30:00.000Z" },
+      { "id": "2", "name": "Revenue", "color": "#10B981", "createdAt": "2024-12-10T10:30:00.000Z" },
+      { "id": "3", "name": "Expense", "color": "#F59E0B", "createdAt": "2024-12-10T10:30:00.000Z" }
+    ]
+  },
+  {
+    "id": "1701345678901",
+    "userId": "1",
+    "createdAt": "2024-12-14T14:20:00.000Z",
+    "tenant": {
+      "tenantName": "TechStart",
+      "tenantIdentifier": "techstart",
+      "environment": "production",
+      "dataRegion": "eu-central"
     },
-    {
-      "id": "4817",
-      "userId": "1",
-      "createdAt": "2025-12-16T15:50:27.944Z",
-      "tenant": {
-        "tenantName": "New Test",
-        "tenantIdentifier": "nw-tst",
-        "environment": "1",
-        "dataRegion": "2",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "Newtest Inc.",
-        "legalEntityName": "New Testers LLC",
-        "registrationNumber": "456",
-        "industry": "5",
-        "numberOfEmployees": "3",
-        "annualRevenue": "12000",
-        "country": "4",
-        "businessAddress": "Ulica 458"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444",
-          "createdAt": "2025-12-16T15:49:44.853Z"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981",
-          "createdAt": "2025-12-16T15:49:44.853Z"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B",
-          "createdAt": "2025-12-16T15:49:44.853Z"
-        },
-        {
-          "id": "1765900225080",
-          "name": "Investments",
-          "color": "#327FFF",
-          "createdAt": "2025-12-16T15:50:25.080Z"
-        }
-      ]
+    "organization": {
+      "organizationName": "TechStart Ltd",
+      "legalEntityName": "TechStart Limited",
+      "registrationNumber": "TS-2024-042",
+      "industry": "tech",
+      "numberOfEmployees": "11-50",
+      "annualRevenue": "2000000",
+      "country": "uk",
+      "businessAddress": "45 Tech Park, London, UK"
     },
-    {
-      "id": "9c5f",
-      "userId": "1",
-      "createdAt": "2025-12-16T15:57:49.920Z",
-      "tenant": {
-        "tenantName": "laco",
-        "tenantIdentifier": "lac",
-        "environment": "2",
-        "dataRegion": "2",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "Special Admin Org",
-        "legalEntityName": "SPec",
-        "registrationNumber": "1248",
-        "industry": "2",
-        "numberOfEmployees": "4",
-        "annualRevenue": "20000",
-        "country": "2",
-        "businessAddress": "laco"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444",
-          "createdAt": "2025-12-16T15:57:10.356Z"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981",
-          "createdAt": "2025-12-16T15:57:10.356Z"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B",
-          "createdAt": "2025-12-16T15:57:10.356Z"
-        }
-      ]
+    "labels": [
+      { "id": "1", "name": "High Priority", "color": "#EF4444", "createdAt": "2024-12-14T14:20:00.000Z" },
+      { "id": "2", "name": "Revenue", "color": "#10B981", "createdAt": "2024-12-14T14:20:00.000Z" },
+      { "id": "4", "name": "Marketing", "color": "#8B5CF6", "createdAt": "2024-12-14T14:22:00.000Z" }
+    ]
+  },
+  {
+    "id": "1701456789012",
+    "userId": "1",
+    "createdAt": "2024-12-15T09:15:00.000Z",
+    "tenant": {
+      "tenantName": "Northern Bank",
+      "tenantIdentifier": "northern-bank",
+      "environment": "sandbox",
+      "dataRegion": "eu-west"
     },
-    {
-      "id": "e620",
-      "userId": "2",
-      "createdAt": "2025-12-16T15:59:25.468Z",
-      "tenant": {
-        "tenantName": "Marek",
-        "tenantIdentifier": "mark",
-        "environment": "2",
-        "dataRegion": "2",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "Marek org",
-        "legalEntityName": "markorg",
-        "registrationNumber": "2487",
-        "industry": "2",
-        "numberOfEmployees": "4",
-        "annualRevenue": "20",
-        "country": "3",
-        "businessAddress": "laco 49"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444",
-          "createdAt": "2025-12-16T15:58:47.371Z"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981",
-          "createdAt": "2025-12-16T15:58:47.371Z"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B",
-          "createdAt": "2025-12-16T15:58:47.371Z"
-        }
-      ]
-    }
+    "organization": {
+      "organizationName": "Northern Bank",
+      "legalEntityName": "Northern Bank PLC",
+      "registrationNumber": "NB-2024-789",
+      "industry": "banking",
+      "numberOfEmployees": "1001-5000",
+      "annualRevenue": "150000000",
+      "country": "uk",
+      "businessAddress": "10 Banking Square, Edinburgh, Scotland"
+    },
+    "labels": [
+      { "id": "1", "name": "High Priority", "color": "#EF4444", "createdAt": "2024-12-15T09:15:00.000Z" },
+      { "id": "2", "name": "Revenue", "color": "#10B981", "createdAt": "2024-12-15T09:15:00.000Z" },
+      { "id": "3", "name": "Expense", "color": "#F59E0B", "createdAt": "2024-12-15T09:15:00.000Z" },
+      { "id": "5", "name": "Compliance", "color": "#3B82F6", "createdAt": "2024-12-15T09:17:00.000Z" }
+    ]
+  },
+  {
+    "id": "1701567890123",
+    "userId": "3",
+    "createdAt": "2024-12-12T16:45:00.000Z",
+    "tenant": {
+      "tenantName": "Acme Corp",
+      "tenantIdentifier": "acme-corp",
+      "environment": "production",
+      "dataRegion": "us-east"
+    },
+    "organization": {
+      "organizationName": "Acme Corporation",
+      "legalEntityName": "Acme Corp Inc",
+      "registrationNumber": "AC-2024-555",
+      "industry": "insurance",
+      "numberOfEmployees": "201-500",
+      "annualRevenue": "25000000",
+      "country": "us",
+      "businessAddress": "456 Main Street, Boston, MA 02101"
+    },
+    "labels": [
+      { "id": "1", "name": "High Priority", "color": "#EF4444", "createdAt": "2024-12-12T16:45:00.000Z" },
+      { "id": "2", "name": "Revenue", "color": "#10B981", "createdAt": "2024-12-12T16:45:00.000Z" },
+      { "id": "3", "name": "Expense", "color": "#F59E0B", "createdAt": "2024-12-12T16:45:00.000Z" }
+    ]
+  }
   ],
   "environment": [
     {

@@ -1,66 +1,254 @@
-## 🧩 Frontend Technical Assignment
+# Organization Onboarding Application
 
-We're excited to get to know you — not just your technical skills, but how you think, learn, and approach problems. For us, character, motivation, drive, and a willingness to grow matter just as much as code.
+A multi-tenant organization onboarding system built with React, TypeScript, and TailwindCSS. This application provides a complete user journey from authentication through organization creation to dashboard management.
 
-This assignment is meant to give you a taste of what working with us feels like. Think of it more as a conversation starter than a test.
+## 🚀 Features
 
-Remember: it's not about perfection. It's about showing your thought process, your curiosity, and your approach to learning and solving problems.
+### Authentication & User Management
 
----
+- Secure login system with form validation
+- Multi-user support with data isolation
+- Role-based user identification (Admin, Manager, User)
+- Protected routes and session management
 
-### 🗃️ What you'll get
-Below is a link to a Figma file. There are 2 parts to it:
+### Onboarding Flow
 
-[Figma file](https://www.figma.com/design/TTNgFDV6QjMRMbkxatbG1c/FE---Home-assignment?node-id=5-8671&t=STaTNG3tW31Udddt-0)
+- **3-step progressive disclosure form:**
+  1. Tenant Configuration (environment, region, identifier)
+  2. Organization Details (business information, industry, country)
+  3. Labels & Categories (customizable tags with color coding)
+- Real-time form validation with visual feedback
+- Progress tracking with completion indicators
+- Form state persistence during navigation
+- Success confirmation screen
 
-1. **The onboarding flow:** this is the required portion of the assignment. It's highlighted in green in the Figma file.
-2. **The rest of the application:** this is for you to pick and choose features from if you have time left.
+### Dashboard
 
-### 🎯 What we expect
-We want you to fork the repository and implement the following features:
+- **Organization Overview:**
+  - Dynamic statistics cards (tenant info, organization count, active labels)
+  - Organization switcher dropdown (multi-org support)
+  - Detailed organization information display
+  - Color-coded label management
+- **Recent Activity Timeline:**
+  - Organization creation events
+  - Label addition tracking
+  - Timestamp-based sorting
+- **Organization Management:**
+  - Create new organizations
+  - Delete existing organizations (with confirmation, also for you for testing purposes)
+  - Switch between multiple organizations seamlessly (using the org dropdown)
 
-#### Base features
-- Form handling
-  - Some input fields require data to be fetched from the API (use the `json-server` GET endpoints for this).
-- Input validation
-  - The form inputs should be validated and a basic error message displayed if some of them is invalid.
-- Form submission
-  - Once the whole form is filled out correctly, the user should be able to send the form data to the API (use the `json-server` POST endpoint for this).
+### UX Polish
 
-#### Optional features
-This part is not required. If you're done with the required functionality, it's up to you to choose what to do next.  You can either polish the onboarding flow, or pick a completely new part of the UI from the Figma file and implement that. This is your chance to show us what you got!
+- Global toast notification system
+- Loading states with animations
+- Input field character limits
+- Text truncation for long names
+- Responsive form validation (touched state pattern)
+- Optional field handling (green validation without red errors, used on fields that are not mandatory)
 
-#### Technical requirements
-- This repository is initialized with React, but if you prefer another FE framework, it's up to you. You can use any component library, CSS solution, framework, package or AI tooling.
-- We're also using `json-server` for simulating an API. You can read more about it [here](https://www.npmjs.com/package/json-server).
-    - Start the `json-server` with `npm run api:start`.
-    - Reset the `json-server` to original data with `npm run api:reset`
-    - Available endpoints:
-        - POST `http://localhost:3001/submission` - submit the final form data to this endpoint. See existing entries in `db.json` for the required shape.
-        - GET `http://localhost:3001/environment` - fetch available environments
-        - GET `http://localhost:3001/region` - fetch available regions
-        - GET `http://localhost:3001/industry` - fetch available industries
-        - GET `http://localhost:3001/number-of-employees` - fetch available employee count ranges
-        - GET `http://localhost:3001/country` - fetch available countries
-        - GET `http://localhost:3001/color` - fetch available colors
+## 🛠️ Tech Stack
 
-- The onboarding flow should include proper validation.
-- Data should be fetched from and submitted to the API (we're using TanStack Query in our team).
-- The screens should be styled (we're using Tailwind in our team).
+- **Frontend Framework:** React 19 with TypeScript
+- **Build Tool:** Vite 7
+- **Styling:** TailwindCSS 3 with custom animations
+- **Routing:** React Router v7
+- **State Management:** React Hooks (useState, useEffect)
+- **Data Fetching:** TanStack Query v5 (React Query)
+- **Icons:** Heroicons v2
+- **Backend Simulation:** json-server v1.0 (beta)
+- **TypeScript:** v5.9
 
-### 📥 Submission
-1. Fork the repository
-1. Create a pull request with your changes.
-2. Add a simple README with:
-    - How to install and run it.
-    - Any notes about your approach.
-3. Send us the link (if your repository is private, please add `@mbednarik-ohpen` and `@denis-rahl-ohpen` as collaborators).
+## 📦 Installation & Setup
 
-That's it! Keep it simple and if you have any questions, please don't hesitate to reach out.
+### Prerequisites
 
-### 🔜 Next steps
-- We will go over your submitted assignment.
-- If everything looks fine, we'll invite you to a technical call.
-  - No need to worry about this step. This is a time for you to walk us through your work. We’ll talk about your choices — why you built something a certain way, what alternatives you considered, what you might change with more time, and so on.
-  - If you have a project you're particularly proud of, please send it to us before the call and we can talk about it too.
-- We'll get back to you with feedback and decision.
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Steps
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/oravecmark/frontend-technical-assignment.git
+cd frontend-technical-assignment
+```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Start the development server:**
+
+```bash
+npm run dev
+```
+
+4. **Start the API server (in a separate terminal):**
+
+```bash
+npm run api:start
+```
+
+5. **Open your browser:**
+
+```
+http://localhost:5173
+```
+
+### Demo Credentials
+
+The application includes three test users:
+
+- **Admin User:** `admin@financehub.com` / `password123`
+- **Manager:** `marek@financehub.com` / `password123`
+- **User:** `john@financehub.com` / `password123`
+
+## 🏗️ Architecture Decisions
+
+### Customer-Facing vs Platform Admin View
+
+This implementation focuses on the **customer-facing application** rather than the platform administrative dashboard shown in some Figma designs.
+
+**Rationale:**
+
+- The assignment emphasizes "organization onboarding flow" - a customer journey
+- Demonstrates proper multi-tenant architecture with data isolation
+- Shows complete end-to-end user experience (signup → onboard → manage)
+- Better alignment with the onboarding focus of the assignment
+
+**What this application provides:**
+
+- ✅ Customers create and manage their own organizations
+- ✅ Multi-user support with isolated data per user
+- ✅ Organization switching for users with multiple orgs
+- ✅ Personal dashboard showing user-specific data
+
+**What a platform admin view would provide (different application layer):**
+
+- ❌ FinanceHub employees managing all customers
+- ❌ Platform-wide statistics (all users, all organizations)
+- ❌ Cross-customer data access and management
+
+### Multi-Tenant Data Architecture
+
+The application uses a simulated relational database structure:
+
+```
+users: { id, email, password, name, role }
+submission: { id, userId, createdAt, tenant, organization, labels }
+```
+
+**Key features:**
+
+- Foreign key relationships (userId links submissions to users)
+- Data isolation (users only access their own submissions)
+- Timestamp tracking for activity logs
+- RESTful API patterns
+
+### Form Validation Strategy
+
+**Required fields:** Red border when empty + touched, green when valid
+**Optional fields:** Gray border when empty, green when filled (never red)
+
+This approach provides clear visual feedback without penalizing users for skipping optional fields.
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── AccordionComponent.tsx    # Collapsible section wrapper
+│   ├── Login.tsx                 # Authentication page
+│   ├── OnboardingFlow.tsx        # Main onboarding orchestrator
+│   ├── TenantForm.tsx            # Step 1: Tenant configuration
+│   ├── OrganizationForm.tsx      # Step 2: Organization details
+│   ├── LabelsForm.tsx            # Step 3: Label management
+│   ├── Dashboard.tsx             # User dashboard
+│   ├── LoadingSpinner.tsx        # Reusable loading component
+│   ├── Toast.tsx                 # Notification component
+│   └── SuccessScreen.tsx         # Completion confirmation
+├── contexts/
+│   └── ToastContext.tsx          # Global toast state management
+├── App.tsx                       # Routing configuration
+└── main.tsx                      # Application entry point
+```
+
+## 🎯 Key Technical Highlights
+
+1. **State Management:** Context API for global notifications, React Query for server state
+2. **TypeScript:** Full type safety with interfaces for all data structures
+3. **Form Handling:** Controlled components with validation logic
+4. **API Integration:** RESTful operations (GET, POST, DELETE) with json-server
+5. **Responsive Design:** TailwindCSS utility classes with custom animations
+6. **Code Organization:** Component-based architecture with clear separation of concerns
+
+## 🔄 Data Flow
+
+1. **Login:** User credentials → API validation → localStorage session → Route to dashboard/onboarding
+2. **Onboarding:** Form data collection → Validation → API POST with userId → Success confirmation
+3. **Dashboard:** Fetch user submissions → Display latest org → Allow switching → Recent activity aggregation
+
+## 🚧 Future Improvements
+
+With additional time, I would implement:
+
+### High Priority
+
+- **Role-based dashboards:** Different views for Admin vs Manager vs User roles
+- **Environment switching:** Toggle between Production, Sandbox, and Development environments
+- **Edit functionality:** Modify existing organizations and labels
+- **Soft delete:** Archive organizations instead of permanent deletion
+- **Activity log persistence:** Separate activities table for comprehensive history
+
+### Medium Priority
+
+- **Search & filtering:** Find organizations and filter by criteria
+- **Pagination:** For users with many organizations
+- **Export functionality:** Download organization data as CSV/PDF
+- **Email notifications:** Organization creation confirmations
+
+### Nice-to-Have
+
+- **Dark mode:** Theme toggle
+- **Internationalization:** Multi-language support
+- **Advanced charts:** Organization analytics and trends
+- **Collaboration:** Invite team members to organizations
+
+## 🧪 Testing
+
+To test the multi-tenant isolation:
+
+1. Login as `admin@financehub.com` and create an organization
+2. Logout and login as `marek@financehub.com`
+3. Verify you cannot see admin's organizations
+4. Create your own organization
+5. Switch back to admin - verify data separation
+
+Obviously this is one of many test scenarios you can try, the application is also "endpoint proof", meaning if you try to manually go to /dashboard without actually having an organization, you will be prompted to create one, and so on.
+
+Each of the 3 users has a different setting so you can try multiple scenarios which goes like this:
+
+1. Login as admin → See 3 orgs, test switcher
+2. Login as Marek → See onboarding flow
+3. Login as John → See single org dashboard
+
+## 📝 Notes
+
+- The application uses `json-server` for backend simulation. In production, this would be replaced with a proper backend (Node.js, Django, etc.)
+- Passwords are stored in plain text in `db.json` for demo purposes. Production would use proper hashing
+- The application demonstrates frontend capabilities; production would require proper authentication
+- Timestamps use ISO format for consistency and timezone handling
+
+## 👤 Author
+
+Marek Oravec
+
+- GitHub: [@oravecmark](https://github.com/oravecmark)
+
+## 📄 License
+
+This project was created as a technical assignment for Ohpen.
