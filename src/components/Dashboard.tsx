@@ -115,6 +115,21 @@ function Dashboard() {
     return name.charAt(0).toUpperCase();
   };
 
+  // Get time ago from date
+  const getTimeAgo = (date: Date) => {
+    const now = new Date();
+    const diffInMs = now.getTime() - date.getTime();
+    const diffInMinutes = Math.floor(diffInMs / 60000);
+    const diffInHours = Math.floor(diffInMs / 3600000);
+    const diffInDays = Math.floor(diffInMs / 86400000);
+
+    if (diffInMinutes < 1) return 'Just now';
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+    if (diffInHours < 24) return `${diffInHours}h ago`;
+    if (diffInDays < 7) return `${diffInDays}d ago`;
+    return date.toLocaleDateString();
+  };
+
   if (!currentUser) {
     return null; // Will redirect to login
   }
@@ -460,6 +475,40 @@ function Dashboard() {
                 <p className="text-sm text-gray-500">No labels configured</p>
               )}
             </div>
+          </div>
+          {/* Recent Activity Section */}
+          <div className="mt-6 bg-white rounded-lg border border-gray-200 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+            {submissions && submissions.length > 0 ? (
+              <div className="space-y-4">
+                {submissions
+                  .slice()
+                  .reverse()
+                  .slice(0, 5)
+                  .map((submission: any, index: number) => {
+                    const createdDate = submission.createdAt ? new Date(submission.createdAt) : new Date();
+                    const timeAgo = getTimeAgo(createdDate);
+
+                    return (
+                      <div
+                        key={submission.id || index}
+                        className="flex items-start gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0"
+                      >
+                        <div className="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <BuildingLibraryIcon className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900">Organization created</p>
+                          <p className="text-sm text-gray-600 mt-0.5">{submission.organization.organizationName}</p>
+                        </div>
+                        <div className="flex-shrink-0 text-xs text-gray-500">{timeAgo}</div>
+                      </div>
+                    );
+                  })}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">No activity yet</p>
+            )}
           </div>
         </div>
       </div>

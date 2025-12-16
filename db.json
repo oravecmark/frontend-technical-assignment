@@ -24,100 +24,25 @@
   ],
   "submission": [
     {
-      "id": "639e",
+      "id": "55d5",
       "userId": "2",
+      "createdAt": "2025-12-14T01:33:53.915Z",
       "tenant": {
-        "tenantName": "New User Test",
-        "tenantIdentifier": "new-test",
+        "tenantName": "Lubomir Pucinsky",
+        "tenantIdentifier": "Lub-Puc",
         "environment": "1",
         "dataRegion": "2",
         "multiCurrency": true
       },
       "organization": {
-        "organizationName": "New User Inc.",
-        "legalEntityName": "New User Test Incorporated",
-        "registrationNumber": "1234",
-        "industry": "3",
-        "numberOfEmployees": "3",
-        "annualRevenue": "10000",
+        "organizationName": "Pucovanie s Pucom",
+        "legalEntityName": "Pucovnicvto LLC",
+        "registrationNumber": "12",
+        "industry": "1",
+        "numberOfEmployees": "2",
+        "annualRevenue": "45000",
         "country": "3",
-        "businessAddress": "Zahradnicka 420"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B"
-        }
-      ]
-    },
-    {
-      "id": "1ffa",
-      "userId": "2",
-      "tenant": {
-        "tenantName": "hghgh",
-        "tenantIdentifier": "dgsdgsdg",
-        "environment": "1",
-        "dataRegion": "2",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "dgdg",
-        "legalEntityName": "dghdghd",
-        "registrationNumber": "1345",
-        "industry": "1",
-        "numberOfEmployees": "4",
-        "annualRevenue": "420000",
-        "country": "4",
-        "businessAddress": "okruzna 20"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B"
-        }
-      ]
-    },
-    {
-      "id": "dacf",
-      "userId": "2",
-      "tenant": {
-        "tenantName": "fghdfghdfg",
-        "tenantIdentifier": "hdfghfghdf",
-        "environment": "1",
-        "dataRegion": "2",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "dsgdgdg",
-        "legalEntityName": "dghdfsghdg",
-        "registrationNumber": "245",
-        "industry": "1",
-        "numberOfEmployees": "4",
-        "annualRevenue": "15000",
-        "country": "2",
-        "businessAddress": "ulica"
+        "businessAddress": "Okruzna"
       },
       "labels": [
         {
@@ -136,166 +61,38 @@
           "color": "#F59E0B"
         },
         {
-          "id": "1765814335914",
-          "name": "laco",
+          "id": "1765848832658",
+          "name": "Investments",
           "color": "#327FFF"
         }
       ]
     },
     {
-      "id": "928c",
-      "userId": "1",
-      "tenant": {
-        "tenantName": "test tenant",
-        "tenantIdentifier": "test identif",
-        "environment": "3",
-        "dataRegion": "5",
-        "multiCurrency": false
-      },
-      "organization": {
-        "organizationName": "Laco",
-        "legalEntityName": "Laco Pucinsky",
-        "registrationNumber": "9119",
-        "industry": "5",
-        "numberOfEmployees": "5",
-        "annualRevenue": "42069",
-        "country": "6",
-        "businessAddress": "Test Ulica 18"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B"
-        },
-        {
-          "id": "1765818442905",
-          "name": "Test Label",
-          "color": "#F66900"
-        }
-      ]
-    },
-    {
-      "id": "de40",
-      "userId": "1",
-      "tenant": {
-        "tenantName": "Test 2",
-        "tenantIdentifier": "Test 2 Identifier",
-        "environment": "2",
-        "dataRegion": "1",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "Test 2 new org",
-        "legalEntityName": "Test 2 LLC",
-        "registrationNumber": "1999",
-        "industry": "1",
-        "numberOfEmployees": "3",
-        "annualRevenue": "69420",
-        "country": "1",
-        "businessAddress": "Test Ulica 15"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B"
-        },
-        {
-          "id": "1765818955439",
-          "name": "Another Test Label",
-          "color": "#3BBBA7"
-        }
-      ]
-    },
-    {
-      "id": "c14c",
+      "id": "8b77",
       "userId": "2",
+      "createdAt": "2025-12-16T01:38:38.687Z",
       "tenant": {
-        "tenantName": "dfsdf",
-        "tenantIdentifier": "sdfasf",
-        "environment": "1",
+        "tenantName": "Denis Hakala",
+        "tenantIdentifier": "den-hak",
+        "environment": "2",
         "dataRegion": "3",
         "multiCurrency": true
       },
       "organization": {
-        "organizationName": "Test & Co. \"Special\" Characters!",
-        "legalEntityName": "gdfgb",
-        "registrationNumber": "1235",
-        "industry": "2",
-        "numberOfEmployees": "2",
-        "annualRevenue": "20",
+        "organizationName": "Hak Inc.",
+        "legalEntityName": "Hakala Industries",
+        "registrationNumber": "23",
+        "industry": "5",
+        "numberOfEmployees": "4",
+        "annualRevenue": "100000",
         "country": "4",
-        "businessAddress": "ulicaaa"
+        "businessAddress": "Zahradnicka"
       },
       "labels": [
         {
           "id": "1",
           "name": "High Priority",
           "color": "#EF4444"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981"
-        },
-        {
-          "id": "3",
-          "name": "Expense",
-          "color": "#F59E0B"
-        }
-      ]
-    },
-    {
-      "id": "bc81",
-      "userId": "2",
-      "tenant": {
-        "tenantName": "This is an extremely long organization name that should still work properly without breaking anything",
-        "tenantIdentifier": "vdgvdfv",
-        "environment": "1",
-        "dataRegion": "2",
-        "multiCurrency": true
-      },
-      "organization": {
-        "organizationName": "sdvsdv",
-        "legalEntityName": "vbdfvdfv",
-        "registrationNumber": "121465",
-        "industry": "3",
-        "numberOfEmployees": "2",
-        "annualRevenue": "250000",
-        "country": "4",
-        "businessAddress": "losos"
-      },
-      "labels": [
-        {
-          "id": "1",
-          "name": "High Priority",
-          "color": "#EF4444"
-        },
-        {
-          "id": "2",
-          "name": "Revenue",
-          "color": "#10B981"
         },
         {
           "id": "3",

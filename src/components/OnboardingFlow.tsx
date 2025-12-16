@@ -66,6 +66,7 @@ function OnboardingFlow() {
 
       const submissionData = {
         userId: currentUser.id,
+        createdAt: new Date().toISOString(),
         tenant,
         organization,
         labels: labels.labels,
