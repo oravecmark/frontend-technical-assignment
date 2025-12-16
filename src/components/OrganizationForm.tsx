@@ -71,6 +71,29 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
     return value.trim().length > 0 && !errors[field];
   };
 
+  // Show validation for optional fields (never red, only green when valid)
+  const showOptionalValidation = (field: keyof OrganizationFormData) => {
+    const value = formData[field];
+
+    if (field === 'registrationNumber') {
+      return value && value.trim().length > 0;
+    }
+
+    if (field === 'numberOfEmployees') {
+      return value && value.trim().length > 0;
+    }
+
+    if (field === 'annualRevenue') {
+      return value && value.trim().length > 0 && /^[\d\s]+$/.test(value);
+    }
+
+    if (field === 'businessAddress') {
+      return value && value.trim().length > 0;
+    }
+
+    return false;
+  };
+
   const isFormValid =
     formData.organizationName.trim().length > 0 &&
     formData.legalEntityName.trim().length > 0 &&
@@ -227,7 +250,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
           )}
         </div>
 
-        {/* Registration Number */}
+        {/* Registration Number - OPTIONAL */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Registration Number</label>
           <input
@@ -235,9 +258,17 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
             value={formData.registrationNumber}
             onChange={(e) => handleChange('registrationNumber', e.target.value)}
             maxLength={50}
-            className="w-full px-3 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={`w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              showOptionalValidation('registrationNumber') ? 'border-green-500' : 'border-gray-300'
+            }`}
             placeholder="12-3456789"
           />
+          {showOptionalValidation('registrationNumber') && (
+            <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
+              <span>✓</span>
+              Valid
+            </p>
+          )}
           <p className="text-xs text-gray-500 mt-1">EIN, VAT, or company registration number</p>
         </div>
 
@@ -282,7 +313,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
           )}
         </div>
 
-        {/* Number of Employees */}
+        {/* Number of Employees - OPTIONAL */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Number of Employees</label>
           <select
@@ -300,7 +331,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
           </select>
         </div>
 
-        {/* Annual Revenue */}
+        {/* Annual Revenue - OPTIONAL */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Annual Revenue (USD)</label>
           <input
@@ -312,7 +343,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
               showValidation('annualRevenue')
                 ? errors.annualRevenue
                   ? 'border-red-500'
-                  : isFieldValid('annualRevenue')
+                  : showOptionalValidation('annualRevenue')
                   ? 'border-green-500'
                   : 'border-gray-300'
                 : 'border-gray-300'
@@ -325,7 +356,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
               {errors.annualRevenue}
             </p>
           )}
-          {showValidation('annualRevenue') && isFieldValid('annualRevenue') && !errors.annualRevenue && (
+          {showOptionalValidation('annualRevenue') && !errors.annualRevenue && (
             <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
               <span>✓</span>
               Valid
@@ -375,7 +406,7 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
           )}
         </div>
 
-        {/* Business Address */}
+        {/* Business Address - OPTIONAL */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Business Address</label>
           <input
@@ -383,9 +414,17 @@ function OrganizationForm({ onContinue, onValidationFail, initialData }: Organiz
             value={formData.businessAddress}
             onChange={(e) => handleChange('businessAddress', e.target.value)}
             maxLength={200}
-            className="w-full px-3 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={`w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              showOptionalValidation('businessAddress') ? 'border-green-500' : 'border-gray-300'
+            }`}
             placeholder="123 Financial District, Suite 100"
           />
+          {showOptionalValidation('businessAddress') && (
+            <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
+              <span>✓</span>
+              Valid
+            </p>
+          )}
         </div>
       </div>
 

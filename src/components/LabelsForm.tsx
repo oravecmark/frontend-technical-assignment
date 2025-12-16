@@ -155,7 +155,6 @@ function LabelsForm({ onComplete, onValidationFail, initialData }: LabelsFormPro
                 setNewLabelName(e.target.value);
                 if (errors.labelName) setErrors((prev) => ({ ...prev, labelName: '' }));
               }}
-              onBlur={() => handleBlur('labelName')}
               className={`w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 showValidation('labelName')
                   ? errors.labelName

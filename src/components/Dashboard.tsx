@@ -19,6 +19,7 @@ function Dashboard() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [selectedOrgIndex, setSelectedOrgIndex] = useState(0);
   const [isOrgDropdownOpen, setIsOrgDropdownOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Get current user from localStorage
   const currentUserStr = localStorage.getItem('currentUser');
@@ -181,7 +182,7 @@ function Dashboard() {
 
     if (!confirmed) return;
 
-    setIsLoggingOut(true);
+    setIsDeleting(true);
 
     try {
       const response = await fetch(`http://localhost:3001/submission/${latestSubmission.id}`, {
@@ -622,6 +623,7 @@ function Dashboard() {
         </div>
       </div>
       {isLoggingOut && <LoadingSpinner message="Logging out..." />}
+      {isDeleting && <LoadingSpinner message="Deleting organization..." />}
     </div>
   );
 }
